@@ -2,6 +2,7 @@
 #include <string>
 #include <stdlib.h>  
 #include <time.h> 
+#include <random>
 
 int main(int argc, char** argv){
 	std::string alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -30,10 +31,13 @@ int main(int argc, char** argv){
 	if(nums == 'Y' || nums == 'y')
 		alphabet += "!@&?-#%*-=+/{}()[]<>.,";
 
-	srand(time(NULL));
+	std::random_device rd;   
+    std::mt19937 gen(rd());  
+    std::uniform_int_distribution<> dist(0, alphabet.length());
+
 	std::string password = "";
 	for(int i(0); i < l; i++){
-		password += alphabet[rand() % alphabet.length()];
+		password += alphabet[dist(gen)];
 	}
 
 	std::cout << "YOUR PASSWORD: " << password << std::endl;
